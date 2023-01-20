@@ -1,7 +1,12 @@
-const Shimmer = () => {
-     return(
-        <h1>Shimmer UI loading....  </h1>
-     ) 
+import React from "react";
+import { ShimmerSimpleGallery } from "react-shimmer-effects";
+
+const Shimmer = () =>{
+    return (
+        <>
+          <ShimmerSimpleGallery card imageHeight={300} caption />
+        </>
+      );
 }
 
-export default Shimmer; 
+export default Shimmer;
