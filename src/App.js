@@ -5,19 +5,50 @@ import Header from "../src/components/Title"; //default import
 import * as xy from "../src/components/Title"; //for importing all
 import Body from "../src/components/Body";
 import Footer from "../src/components/Footer";
-import { IMG_CDN_URL } from "../src/config";
+import About from "../src/components/About";
+import Error from "./components/Error";
+import {createBrowserRouter, RouterProvider, Outlet} from "react-router-dom";
+import Contact from "./components/Contact";
+import RestaurantMenu from "./components/RestaurantMenu";
 
-const root = reactDom.createRoot(document.getElementById("root"));
 
 const Applayout = () => {
   console.log("Inside app");
   return (
     <>
       <Header />
-      <Body />
+      <Outlet/>
       <Footer />
     </>
   );
 };
 
-root.render(<Applayout />);
+const appRouter = createBrowserRouter([ 
+  {
+    path: "/",
+    element: <Applayout />,
+    errorElement: <Error />,
+    children:[
+      {
+        path: "/",
+        element: <Body />
+      },
+        {
+          path: "/about",
+          element: <About />
+        },
+        {
+          path: "/contact",
+          element: <Contact />
+      },
+      {
+       path: "/restaurant/:id",
+       element: <RestaurantMenu/> 
+      }
+    ]
+  }
+])
+
+const root = reactDom.createRoot(document.getElementById("root"));
+
+root.render(<RouterProvider router={appRouter}/ >);
