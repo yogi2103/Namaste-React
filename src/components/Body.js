@@ -3,14 +3,8 @@ import RestaurantCard from "./RestaurantCard";
 import { useState, useEffect } from "react";
 import Shimmer from "./Shimmer";
 import {Link} from "react-router-dom";
-
-
-function filterData(searchInput, restaurants) {
-  const filtereddata = restaurants.filter((restaurant) =>
-    restaurant?.data?.name?.toLowerCase()?.includes(searchInput)
-  );
-  return filtereddata;
-}
+import { filterData } from "../utils/Helper";
+import useOnline from "../utils/useOnline";
 
 const Body = () => {
   //use state (variablename, functionforupdating)
@@ -37,6 +31,10 @@ const Body = () => {
 
   const [searchClicked, setSearchClicked] = useState("false");
   console.log("Body rendering")
+
+  const online=useOnline();
+  if(!online)
+    return <h1> 🔴 Offline, Please check your internet connection!</h1>
 
   return allrestaurants?.length ===0 ? ( <Shimmer/> ): (
     <>
